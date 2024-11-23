@@ -3,22 +3,22 @@ from constantess import *
 
 # Inicializar
 pygame.init()
-
-
+pygame.display.set_caption("Appa Fans")
+pygame.display.set_icon(pygame.image.load("imagenes/appa.png"))
 # Ventana
 ventana = pygame.display.set_mode((1600, 900))
 reloj = pygame.time.Clock()
 
 # Imagenes
-letra_a = pygame.image.load("letra_a.png")
+letra_a = pygame.image.load("imagenes/letra_a.png")
 letra_a.set_colorkey(BLANCO)
-cor_rosa = pygame.image.load("rosa.png")
+cor_rosa = pygame.image.load("imagenes/rosa.png")
 cor_rosa.set_colorkey(BLANCO)
-cor_celeste = pygame.image.load("celeste.png").convert()
+cor_celeste = pygame.image.load("imagenes/celeste.png").convert_alpha()
 cor_celeste.set_colorkey(BLANCO)
-cor_lila = pygame.image.load("lila.png")
+cor_lila = pygame.image.load("imagenes/lila.png").convert_alpha()
 cor_lila.set_colorkey(BLANCO)
-fondo = pygame.image.load("bfondo.png")
+fondo = pygame.image.load("imagenes/bfondo.png")
 
 corazones=[cor_lila,cor_celeste,cor_rosa]
 # Datos
@@ -64,7 +64,7 @@ while jugando:
         if event.type == pygame.QUIT:
             jugando = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
+            if event.key == pygame.K_ESCAPE:  # que vaya al menú
                 jugando = False
             if event.key == pygame.K_RIGHT:
                 personaje_vel_x = 7
@@ -104,7 +104,7 @@ while jugando:
 
     personaje.x += personaje_vel_x
     personaje.y += personaje_vel_y
-
+    
 
     if personaje.x > ANCHO - personaje.width:
         personaje.x = ANCHO - personaje.width
@@ -119,8 +119,6 @@ while jugando:
         if personaje.colliderect(pared):
             personaje.x -= personaje_vel_x
             personaje.y -= personaje_vel_y
-        #Dibujo paredes
-        #pygame.draw.rect(ventana, NEGRO, pared)
 
     
     # Dibujos
@@ -151,6 +149,7 @@ while jugando:
 
     # Actualizar
     pygame.display.update()
+
 
 # Salir
 pygame.quit()

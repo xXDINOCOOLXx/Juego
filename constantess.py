@@ -13,3 +13,19 @@ VIOLETA2 = (104,0,209)
 # Medidas
 ANCHO = 1600
 ALTO = 900
+
+
+# Sistema
+VIDAS = 3
+ACIERTO = 10
+DESACIERTO= -10
+
+#Menu
+BOTON_JUGAR = 0
+BOTON_CONFIG = 1
+BOTON_PUNTUACIONES = 2
+
+
+#ruido
+
+CLICK_SONIDO = pygame.mixer.Sound("click.mp3")
