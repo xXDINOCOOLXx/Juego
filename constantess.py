@@ -9,10 +9,16 @@ ROJO = (255,0,0)
 AZUL = (0,0,255)
 VIOLETA = (134,23,219)
 VIOLETA2 = (104,0,209)
-
+AMARILLO = (235,200,0)
+NARANJA = (215,179,0)
 # Medidas
 ANCHO = 1600
 ALTO = 900
+
+# Corazones
+LUGAR_cor_celeste =(36,770)
+LUGAR_cor_rosa =(180,770)
+LUGAR_cor_lila =(330,770)
 
 
 # Sistema
@@ -29,3 +35,4 @@ BOTON_PUNTUACIONES = 2
 #ruido
 
 CLICK_SONIDO = pygame.mixer.Sound("click.mp3")
+

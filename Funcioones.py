@@ -43,8 +43,25 @@ def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["puntuacion"] = 0
     datos_juego["vidas"] = VIDAS
 
-
-
+def lugar_respuesta (personaje):
+    if personaje.y>650:
+        if personaje.x>530 and personaje.x<670 :
+            return "A"
+        if personaje.x>796 and personaje.x<936:
+            return "B"
+        if personaje.x>1064 and personaje.x< 1204:
+            return "C"
+        if personaje.x>1330 and personaje.x< 1470:
+            return "D"
+    else:
+        return None
+""" def corazonear_corazones (diccionario:dict):       Esto tendría que ver con tratar de ahorrar las lineas 48 a 59 de aa
+    for "corazon" in diccionario:
+        diccionario 
+        
+        diccionario=[{"imagen": img_cor_celeste, "posicion":LUGAR_cor_celeste, "corazon": "cor_celeste"}, 
+            {"imagen": img_cor_rosa, "posicion":LUGAR_cor_rosa "corazon": "cor_rosa"}, 
+            {"imagen": img_cor_lila, "posicion": LUGAR_cor_lila, "corazon": "cor_lila"}] """
 
 
 # MENU
