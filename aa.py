@@ -15,8 +15,9 @@ letra_a = pygame.image.load("imagenes/letra_a.png")
 letra_a.set_colorkey(BLANCO)
 
 img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
-img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png").convert_alpha()
-img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png").convert_alpha()
+img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
+img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png")
+corazon_fondo=pygame.image.load("imagenes/corazón_fondo.png")
 
 fondo = pygame.image.load("imagenes/bfondo.png")
 
@@ -149,9 +150,12 @@ while jugando:
     ventana.blit(letra_a, (1084,490))
     ventana.blit(letra_a, (1350,490))
     
+    ventana.blit(corazon_fondo, LUGAR_cor_celeste)
+    ventana.blit(corazon_fondo, LUGAR_cor_rosa)
+    ventana.blit(corazon_fondo, LUGAR_cor_lila)
     ventana.blit(img_cor_celeste, LUGAR_cor_celeste)
-    ventana.blit(img_cor_rosa, LUGAR_cor_rosa)
-    ventana.blit(img_cor_lila, LUGAR_cor_lila)
+    #ventana.blit(img_cor_rosa, LUGAR_cor_rosa)
+    #ventana.blit(img_cor_lila, LUGAR_cor_lila)
 
     for pared in paredes:
         #Dibujo paredes
