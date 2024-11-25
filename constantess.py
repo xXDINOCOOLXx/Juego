@@ -34,5 +34,8 @@ BOTON_PUNTUACIONES = 2
 
 #ruido
 
-CLICK_SONIDO = pygame.mixer.Sound("click.mp3")
+CLICK_SONIDO = pygame.mixer.Sound("sonidos/click.mp3")
+CLICK_SONIDO.set_volume(0.12)
+click2= pygame.mixer.Sound("sonidos/sus.mp3")
+click2.set_volume(0.1)
 

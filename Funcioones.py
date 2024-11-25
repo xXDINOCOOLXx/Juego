@@ -44,7 +44,7 @@ def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["vidas"] = VIDAS
 
 def lugar_respuesta (personaje):
-    if personaje.y>650:
+    if personaje.y>600:
         if personaje.x>530 and personaje.x<670 :
             return "A"
         if personaje.x>796 and personaje.x<936:
@@ -55,13 +55,16 @@ def lugar_respuesta (personaje):
             return "D"
     else:
         return None
-""" def corazonear_corazones (diccionario:dict):       Esto tendría que ver con tratar de ahorrar las lineas 48 a 59 de aa
-    for "corazon" in diccionario:
-        diccionario 
-        
-        diccionario=[{"imagen": img_cor_celeste, "posicion":LUGAR_cor_celeste, "corazon": "cor_celeste"}, 
-            {"imagen": img_cor_rosa, "posicion":LUGAR_cor_rosa "corazon": "cor_rosa"}, 
-            {"imagen": img_cor_lila, "posicion": LUGAR_cor_lila, "corazon": "cor_lila"}] """
+#no funca todavía
+
+
+def ubicar_imagenes(imagen, posición):     
+    superficie=imagen.get_rect()
+    superficie.x=posición[0]
+    superficie.y=posición[1]
+
+    return superficie
+
 
 
 # MENU
@@ -80,8 +83,8 @@ for i in range(4):
     boton["rectangulo"] = boton["superficie"].get_rect()
     lista_botones.append(boton)
 
-fondo = pygame.image.load("fondo.jpg")
-fondo = pygame.transform.scale(fondo,ANCHO,ALTO)
+#fondo = pygame.image.load("imagenes/fondo.png")
+#fondo = pygame.transform.scale(fondo,ANCHO,ALTO)
 
 def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])-> str:
     #Gestionar eventos:
