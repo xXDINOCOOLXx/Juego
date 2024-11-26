@@ -1,6 +1,7 @@
 import pygame
 from constantess import *
 from Funcioones import *
+import random
 
 # Inicializar
 pygame.init()
@@ -54,10 +55,10 @@ cor_lila= ubicar_imagenes(img_cor_lila, LUGAR_cor_lila)
 corazones=[cor_celeste,cor_rosa,cor_lila]
 corazon_activo=None
 
-personaje=ubicar_imagenes(pj_imagen, (1500,800))
+personaje=ubicar_imagenes(pj_imagen, (1025,800))
 personaje_vel_x = 0
 personaje_vel_y = 0
-respuesta=lugar_respuesta(personaje)
+
 
 # Bucle principal
 jugando = True
@@ -65,6 +66,8 @@ while jugando:
 
     reloj.tick(60)
 
+    respuesta=lugar_respuesta(personaje)
+    #respondio=False
     # Eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -98,21 +101,30 @@ while jugando:
                     if corazon.collidepoint(event.pos):
                         corazon_activo = num
                         bandera=False
-                        click2.play()
+                        gritos[random.randint(0,2)].play()
                         print(num)
+                        if respuesta!= None: #and respondio==False:
+                            mover_objeto(respuesta,corazon)
+                            #respondio=True
+            if event.button==3:
+                if personaje.collidepoint(event.pos):
+                    print("p")
+                    if respuesta!=None:
+                        mover_objeto(respuesta,personaje)
+
             if bandera== True:
                 CLICK_SONIDO.play()
         if event.type == pygame.MOUSEBUTTONUP:
-            print("o")
             corazon_activo = None
         
-        
-    # if respuesta!=None and corazon_activo!=None:
-        # if respuesta=="D":
-            # print("a")
-            # corazones[corazon_activo].x=550
-            # corazones[corazon_activo].y=490
-
+#    if respuesta!=None and corazon_activo!=None:
+#        if respuesta=="D":
+#            print("a")
+#            cor_celeste.x=550
+#            cor_celeste.y=490
+            #corazones[corazon_activo].x=550
+            #corazones[corazon_activo].y=490
+    #mover_corazon(corazon_activo,corazones,respuesta)
 
 
     # Lógica
@@ -153,9 +165,9 @@ while jugando:
     ventana.blit(corazon_fondo, LUGAR_cor_celeste)
     ventana.blit(corazon_fondo, LUGAR_cor_rosa)
     ventana.blit(corazon_fondo, LUGAR_cor_lila)
-    ventana.blit(img_cor_celeste, LUGAR_cor_celeste)
-    #ventana.blit(img_cor_rosa, LUGAR_cor_rosa)
-    #ventana.blit(img_cor_lila, LUGAR_cor_lila)
+    ventana.blit(img_cor_celeste, cor_celeste)
+    ventana.blit(img_cor_rosa, cor_rosa)
+    ventana.blit(img_cor_lila, cor_lila)
 
     for pared in paredes:
         #Dibujo paredes

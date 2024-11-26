@@ -1,3 +1,7 @@
+import random
+from constantess import *
+import pygame
+
 
 def modificar_puntaje(diccionario_jugador:dict, nuevo_puntaje:int)->bool:
     pass 

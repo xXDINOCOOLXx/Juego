@@ -44,18 +44,34 @@ def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["vidas"] = VIDAS
 
 def lugar_respuesta (personaje):
-    if personaje.y>600:
+    if personaje.y<600:
         if personaje.x>530 and personaje.x<670 :
             return "A"
-        if personaje.x>796 and personaje.x<936:
+        elif personaje.x>796 and personaje.x<936:
             return "B"
-        if personaje.x>1064 and personaje.x< 1204:
+        elif personaje.x>1064 and personaje.x< 1204:
             return "C"
-        if personaje.x>1330 and personaje.x< 1470:
+        elif personaje.x>1330 and personaje.x< 1470:
             return "D"
     else:
         return None
 #no funca todavía
+def mover_objeto(respuesta,objeto):
+    if respuesta!=None:
+        if respuesta=="A":
+            objeto.x=550
+            objeto.y=490
+        if respuesta=="B":
+            objeto.x=550
+            objeto.y=490
+        if respuesta=="C":
+            objeto.x=550
+            objeto.y=490
+        if respuesta=="D":
+            objeto.x=550
+            objeto.y=490
+    return objeto
+
 
 
 def ubicar_imagenes(imagen, posición):     
