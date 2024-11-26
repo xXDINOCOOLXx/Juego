@@ -36,11 +36,13 @@ BOTON_PUNTUACIONES = 2
 
 CLICK_SONIDO = pygame.mixer.Sound("sonidos/click.mp3")
 CLICK_SONIDO.set_volume(0.12)
-click_grito1= pygame.mixer.Sound("sonidos/grito2.mp3")
+click_grito1= pygame.mixer.Sound("sonidos/grito.mp3")
 click_grito1.set_volume(1)
 click_grito2= pygame.mixer.Sound("sonidos/grito2.mp3")
 click_grito2.set_volume(1)
 click_grito3= pygame.mixer.Sound("sonidos/grito3.mp3")
 click_grito3.set_volume(1)
-
 gritos=[click_grito1,click_grito2, click_grito3]
+
+#musica_8bit= pygame.mixer.Sound("sonidos/8bitRandom.mp3")
+#musica_8bit.set_volume(0.05)

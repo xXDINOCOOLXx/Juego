@@ -21,7 +21,7 @@ def mostrar_texto(surface, texto, posicion, fuente, color):
 
 def mezclar_lista(lista_preguntas:list) -> None:
     random.shuffle(lista_preguntas)
-    
+
 def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> bool:
     if respuesta == pregunta_actual["respuesta_correcta"]:
         datos_juego["puntuacion"] += ACIERTO
@@ -38,7 +38,7 @@ def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> 
         retorno = False
     
     return retorno
-    
+
 def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["puntuacion"] = 0
     datos_juego["vidas"] = VIDAS
@@ -55,33 +55,28 @@ def lugar_respuesta (personaje):
             return "D"
     else:
         return None
-#no funca todavía
+
 def mover_objeto(respuesta,objeto):
     if respuesta!=None:
         if respuesta=="A":
             objeto.x=550
             objeto.y=490
         if respuesta=="B":
-            objeto.x=550
+            objeto.x=825
             objeto.y=490
         if respuesta=="C":
-            objeto.x=550
+            objeto.x=1084
             objeto.y=490
         if respuesta=="D":
-            objeto.x=550
+            objeto.x=1350
             objeto.y=490
     return objeto
-
-
 
 def ubicar_imagenes(imagen, posición):     
     superficie=imagen.get_rect()
     superficie.x=posición[0]
     superficie.y=posición[1]
-
     return superficie
-
-
 
 # MENU
 TAMAÑO_BOTON = (250,60) # borrar

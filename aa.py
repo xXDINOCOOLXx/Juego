@@ -12,8 +12,8 @@ ventana = pygame.display.set_mode((1600, 900))
 reloj = pygame.time.Clock()
 
 # Imagenes
-letra_a = pygame.image.load("imagenes/letra_a.png")
-letra_a.set_colorkey(BLANCO)
+letra_a_img = pygame.image.load("imagenes/letra_a.png")
+letra_a_img.set_colorkey(BLANCO)
 
 img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
 img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
@@ -48,6 +48,12 @@ lugar_corazones = pygame.Rect(25, 755, 405, 100)
 
 
 centro = pygame.Rect(1025, 450, 8, 8)
+letra_a=ubicar_imagenes(letra_a_img, (550,490))
+letra_b=ubicar_imagenes(letra_a_img, (816,490))
+letra_c=ubicar_imagenes(letra_a_img, (1084,490))
+letra_d=ubicar_imagenes(letra_a_img, (1350,490))
+
+letras=[letra_a,letra_b,letra_c,letra_d]
 
 cor_celeste= ubicar_imagenes(img_cor_celeste, LUGAR_cor_celeste)
 cor_rosa= ubicar_imagenes(img_cor_rosa, LUGAR_cor_rosa)
@@ -65,7 +71,7 @@ jugando = True
 while jugando:
 
     reloj.tick(60)
-
+    #musica_8bit.play()
     respuesta=lugar_respuesta(personaje)
     #respondio=False
     # Eventos
@@ -93,39 +99,24 @@ while jugando:
             if event.key == pygame.K_UP:
                 personaje_vel_y = 0        
         
-        #Click y click corazones
+        #Click y click objetos
         if event.type == pygame.MOUSEBUTTONDOWN:
-            bandera=True
+            bandera_click=True
             if event.button == 1:
                 for num, corazon in enumerate(corazones):
                     if corazon.collidepoint(event.pos):
                         corazon_activo = num
-                        bandera=False
+                        bandera_click=False
                         gritos[random.randint(0,2)].play()
                         print(num)
-                        if respuesta!= None: #and respondio==False:
-                            mover_objeto(respuesta,corazon)
-                            #respondio=True
+                        mover_objeto(respuesta,corazon)
             if event.button==3:
                 if personaje.collidepoint(event.pos):
-                    print("p")
-                    if respuesta!=None:
-                        mover_objeto(respuesta,personaje)
-
-            if bandera== True:
+                    mover_objeto(respuesta,personaje)
+            if bandera_click== True:
                 CLICK_SONIDO.play()
         if event.type == pygame.MOUSEBUTTONUP:
             corazon_activo = None
-        
-#    if respuesta!=None and corazon_activo!=None:
-#        if respuesta=="D":
-#            print("a")
-#            cor_celeste.x=550
-#            cor_celeste.y=490
-            #corazones[corazon_activo].x=550
-            #corazones[corazon_activo].y=490
-    #mover_corazon(corazon_activo,corazones,respuesta)
-
 
     # Lógica
 
@@ -157,10 +148,10 @@ while jugando:
     
     ventana.blit(pj_imagen, personaje)
 
-    ventana.blit(letra_a, (550,490))
-    ventana.blit(letra_a, (816,490))
-    ventana.blit(letra_a, (1084,490))
-    ventana.blit(letra_a, (1350,490))
+    ventana.blit(letra_a_img, letra_a)
+    ventana.blit(letra_a_img, letra_b)
+    ventana.blit(letra_a_img, letra_c)
+    ventana.blit(letra_a_img, letra_d)
     
     ventana.blit(corazon_fondo, LUGAR_cor_celeste)
     ventana.blit(corazon_fondo, LUGAR_cor_rosa)
