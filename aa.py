@@ -1,5 +1,7 @@
 import pygame
 from constantess import *
+from Funcioones import *
+import random
 
 # Inicializar
 pygame.init()
@@ -10,17 +12,19 @@ ventana = pygame.display.set_mode((1600, 900))
 reloj = pygame.time.Clock()
 
 # Imagenes
-letra_a = pygame.image.load("imagenes/letra_a.png")
-letra_a.set_colorkey(BLANCO)
+letra_a_img = pygame.image.load("imagenes/letra_a.png")
+letra_a_img.set_colorkey(BLANCO)
 
 img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
-img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png").convert_alpha()
-img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png").convert_alpha()
+img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
+img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png")
+corazon_fondo=pygame.image.load("imagenes/corazón_fondo.png")
 
-fondo = pygame.image.load("imagenes/bfondo.png")
+fondo = pygame.image.load("imagenes/fondo.png")
 
 pj_imagen= pygame.image.load("imagenes/PJ1.png")
 pj_imagen=pygame.transform.scale(pj_imagen, (105, 120))
+
 # Datos
 
 largo1 = pygame.Rect(450, 650, 80, 10)
@@ -43,39 +47,33 @@ lugar_texto = pygame.Rect(0, 0, 450, 900)
 lugar_corazones = pygame.Rect(25, 755, 405, 100)
 
 
-centro = pygame.Rect(1000, 450, 8, 8)
+centro = pygame.Rect(1025, 450, 8, 8)
+letra_a=ubicar_imagenes(letra_a_img, (550,490))
+letra_b=ubicar_imagenes(letra_a_img, (816,490))
+letra_c=ubicar_imagenes(letra_a_img, (1084,490))
+letra_d=ubicar_imagenes(letra_a_img, (1350,490))
 
-cor_celeste=img_cor_celeste.get_rect()
-cor_celeste.x=LUGAR_cor_celeste[0]
-cor_celeste.y=LUGAR_cor_celeste[1]
+letras=[letra_a,letra_b,letra_c,letra_d]
 
-cor_rosa=img_cor_rosa.get_rect()
-cor_rosa.x=LUGAR_cor_rosa[0]
-cor_rosa.y=LUGAR_cor_rosa[1]
-cor_lila=img_cor_lila.get_rect()
-
-cor_lila.x=LUGAR_cor_lila[0]
-cor_lila.y=LUGAR_cor_lila[1]
+cor_celeste= ubicar_imagenes(img_cor_celeste, LUGAR_cor_celeste)
+cor_rosa= ubicar_imagenes(img_cor_rosa, LUGAR_cor_rosa)
+cor_lila= ubicar_imagenes(img_cor_lila, LUGAR_cor_lila)
 corazones=[cor_celeste,cor_rosa,cor_lila]
+corazon_activo=None
 
-
-
-personaje = pj_imagen.get_rect()
-personaje.x=1500
-personaje.y=800
-
+personaje=ubicar_imagenes(pj_imagen, (1025,800))
 personaje_vel_x = 0
 personaje_vel_y = 0
 
-
-corazon_activo=None
 
 # Bucle principal
 jugando = True
 while jugando:
 
     reloj.tick(60)
-
+    #musica_8bit.play()
+    respuesta=lugar_respuesta(personaje)
+    #respondio=False
     # Eventos
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -101,17 +99,24 @@ while jugando:
             if event.key == pygame.K_UP:
                 personaje_vel_y = 0        
         
-        """ #Arrastrar corazones
+        #Click y click objetos
         if event.type == pygame.MOUSEBUTTONDOWN:
+            bandera_click=True
             if event.button == 1:
-                for num, corazones in enumerate(corazones):
-                    if corazones.collidepoint(event.pos):
+                for num, corazon in enumerate(corazones):
+                    if corazon.collidepoint(event.pos):
                         corazon_activo = num
-            if event.type == pygame.MOUSEBUTTONUP:
-                corazon_activo = None """
-        
-
-
+                        bandera_click=False
+                        gritos[random.randint(0,2)].play()
+                        print(num)
+                        mover_objeto(respuesta,corazon)
+            if event.button==3:
+                if personaje.collidepoint(event.pos):
+                    mover_objeto(respuesta,personaje)
+            if bandera_click== True:
+                CLICK_SONIDO.play()
+        if event.type == pygame.MOUSEBUTTONUP:
+            corazon_activo = None
 
     # Lógica
 
@@ -135,31 +140,36 @@ while jugando:
 
     
     # Dibujos
-
+    #ventana.fill(BLANCO)
     ventana.blit(fondo, (0,0))
     pygame.draw.rect(ventana,AMARILLO, lugar_texto)
     pygame.draw.rect(ventana,NARANJA, lugar_corazones)
     
-    #ventana.blit(superficie, (1400,500))
+    
     ventana.blit(pj_imagen, personaje)
 
-    ventana.blit(letra_a, (550,490))
-    ventana.blit(letra_a, (816,490))
-    ventana.blit(letra_a, (1084,490))
-    ventana.blit(letra_a, (1350,490))
+    ventana.blit(letra_a_img, letra_a)
+    ventana.blit(letra_a_img, letra_b)
+    ventana.blit(letra_a_img, letra_c)
+    ventana.blit(letra_a_img, letra_d)
     
+    ventana.blit(corazon_fondo, LUGAR_cor_celeste)
+    ventana.blit(corazon_fondo, LUGAR_cor_rosa)
+    ventana.blit(corazon_fondo, LUGAR_cor_lila)
     ventana.blit(img_cor_celeste, cor_celeste)
-    ventana.blit(img_cor_rosa, LUGAR_cor_rosa)
-    ventana.blit(img_cor_lila, LUGAR_cor_lila)
+    ventana.blit(img_cor_rosa, cor_rosa)
+    ventana.blit(img_cor_lila, cor_lila)
 
     for pared in paredes:
         #Dibujo paredes
         pygame.draw.rect(ventana, NEGRO, pared)
 
+    """ aparecer= {[fondo,img_cor_celeste,img_cor_lila,img_cor_rosa,letra_a,letra_a,letra_a,letra_a,pj_imagen],
+            [(0,0), LUGAR_cor_celeste,LUGAR_cor_lila, LUGAR_cor_rosa, (550,490),(816,490),(1084,490),(1350,490),personaje]} """
+    
     
     # Actualizar
     pygame.display.update()
-    
 
 # Salir
 pygame.quit()
