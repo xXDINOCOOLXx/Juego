@@ -1,6 +1,8 @@
 import random
 from constantess import *
 import pygame
+import os
+import json
 
 def mostrar_texto(surface, texto, posicion, fuente, color):
     words = [word.split(' ') for word in texto.splitlines()]  # 2D array where each row is a list of words.
@@ -82,60 +84,7 @@ def ubicar_imagenes(imagen, posición):
 TAMAÑO_BOTON = (250,60) # borrar
 BOTON_SALIR = 3 #borrar
 
-pygame.init()
 #boton_jugar = pygame.image.load("imagenes/boton_jugar.png")
-
-fuente_menu = pygame.font.SysFont("Arial Narrow",30)
-lista_botones = []
-for i in range(4):
-    boton = {}
-    boton["superficie"] = pygame.Surface(TAMAÑO_BOTON)
-    boton["superficie"].fill(AZUL)
-    boton["rectangulo"] = boton["superficie"].get_rect()
-    lista_botones.append(boton)
-
-#fondo = pygame.image.load("imagenes/fondo.png")
-#fondo = pygame.transform.scale(fondo,ANCHO,ALTO)
-
-def mostrar_menu(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Event])-> str:
-    #Gestionar eventos:
-    retorno = "menu"
-    for evento in cola_eventos:
-        if evento.type == pygame.MOUSEBUTTONDOWN:
-            for i in range(len(lista_botones)): 
-                if lista_botones[i]["rectangulo"].collidepoint(evento.pos):
-                    CLICK_SONIDO.play()
-                    if i == BOTON_SALIR:
-                        retorno = "salir"  
-                    elif i == BOTON_JUGAR:
-                        retorno = "juego"  
-                    elif i == BOTON_PUNTUACIONES:
-                        retorno = "rankings"
-                    elif i == BOTON_CONFIG:
-                        retorno = "configuraciones"        
-        elif evento.type == pygame.QUIT:
-            retorno = "salir"
-                
-    #Actualizar el juego:
-    
-    #Dibujar pantalla y las otras superficies
-    #pantalla.fill(COLOR_BLANCO)
-    pantalla.blit(fondo,(0,0))
-    
-    lista_botones[0]["rectangulo"] = pantalla.blit(lista_botones[0]["superficie"],(125,115))
-    lista_botones[1]["rectangulo"] = pantalla.blit(lista_botones[1]["superficie"],(125,195))
-    lista_botones[2]["rectangulo"] = pantalla.blit(lista_botones[2]["superficie"],(125,275))
-    lista_botones[3]["rectangulo"] = pantalla.blit(lista_botones[3]["superficie"],(125,355))
-    mostrar_texto(lista_botones[0]["superficie"],"JUGAR",(80,10),fuente_menu,BLANCO)
-    mostrar_texto(lista_botones[1]["superficie"],"CONFIGURACION",(20,10),fuente_menu,BLANCO)
-    mostrar_texto(lista_botones[2]["superficie"],"PUNTUACIONES",(25,10),fuente_menu,BLANCO)
-    mostrar_texto(lista_botones[3]["superficie"],"SALIR",(80,10),fuente_menu,BLANCO)
-    
-    return retorno
-
-#RAnkings
-TAMAÑO_BOTON_VOLVER = (100,40) # es de constantes
-
 
 fuente = pygame.font.SysFont("Arial Narrow",32)
 fuente_boton = pygame.font.SysFont("Arial Narrow",23)
@@ -163,5 +112,35 @@ def mostrar_rankings(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     
     return retorno
                 
+def crear_diccionario_pregunta(lista_valores: list) -> dict:
+    pregunta = {}
+    pregunta["pregunta"] = lista_valores[0].strip()
+    pregunta["respuesta_1"] = lista_valores[1].strip()
+    pregunta["respuesta_2"] = lista_valores[2].strip()
+    pregunta["respuesta_3"] = lista_valores[3].strip()
+    pregunta["respuesta_4"] = lista_valores[4].strip()
+    pregunta["respuesta_correcta"] = int(lista_valores[5].strip())
     
+    return pregunta
+
+def leer_csv_preguntas(nombre_archivo: str, lista_preguntas: list) -> bool:
+    if os.path.exists(nombre_archivo):
+        with open(nombre_archivo, "r", encoding="utf-8") as archivo:
+            archivo.readline() 
+            for linea in archivo:
+                linea_aux = linea.strip()
+                lista_valores = linea_aux.split(",")
+                if len(lista_valores) == 6:
+                    pregunta_aux = crear_diccionario_pregunta(lista_valores)
+                    lista_preguntas.append(pregunta_aux)
+                else:
+                    return False 
+        return True
+    else:
+        return False
     
+def cargar_musica(volumen):
+    porcentaje_volumen = volumen / 100
+    pygame.mixer.music.load("sonidos/8bitRandom.mp3")
+    pygame.mixer.music.set_volume(porcentaje_volumen)
+    pygame.mixer.music.play(-1)

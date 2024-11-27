@@ -14,12 +14,18 @@ NARANJA = (215,179,0)
 # Medidas
 ANCHO = 1600
 ALTO = 900
+PANTALLA = (ANCHO,ALTO)
+TAMAÑO_BOTON = (420,70)
+TAMAÑO_PREGUNTA = (350,150)
+TAMAÑO_RESPUESTA = (250,60)
 
 # Corazones
 LUGAR_cor_celeste =(36,770)
 LUGAR_cor_rosa =(180,770)
 LUGAR_cor_lila =(330,770)
 
+#FPS
+FPS = 60
 
 # Sistema
 VIDAS = 3
@@ -30,19 +36,24 @@ DESACIERTO= -10
 BOTON_JUGAR = 0
 BOTON_CONFIG = 1
 BOTON_PUNTUACIONES = 2
+BOTON_SALIR = 3
 
+#Configuración
+TAMAÑO_BOTON_VOLUMEN = (120, 120)
+TAMAÑO_BOTON_VOLVER = (210, 75)
+
+#Terminado
+CUADRO_TEXTO = (250,50)
 
 #ruido
 
 CLICK_SONIDO = pygame.mixer.Sound("sonidos/click.mp3")
 CLICK_SONIDO.set_volume(0.12)
-click_grito1= pygame.mixer.Sound("sonidos/grito.mp3")
+click_grito1= pygame.mixer.Sound("sonidos/grito2.mp3")
 click_grito1.set_volume(1)
 click_grito2= pygame.mixer.Sound("sonidos/grito2.mp3")
 click_grito2.set_volume(1)
 click_grito3= pygame.mixer.Sound("sonidos/grito3.mp3")
 click_grito3.set_volume(1)
-gritos=[click_grito1,click_grito2, click_grito3]
 
-#musica_8bit= pygame.mixer.Sound("sonidos/8bitRandom.mp3")
-#musica_8bit.set_volume(0.05)
+gritos=[click_grito1,click_grito2, click_grito3]
