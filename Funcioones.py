@@ -45,40 +45,55 @@ def reiniciar_estadisticas(datos_juego:dict):
     datos_juego["puntuacion"] = 0
     datos_juego["vidas"] = VIDAS
 
-def lugar_respuesta (personaje):
+def mover_objeto(personaje,corazon,letras:list=letras):
+    movio=False
     if personaje.y<600:
         if personaje.x>530 and personaje.x<670 :
-            return "A"
+            corazon.x=550
+            corazon.y=490
+            movio=True
+            if movio==True :
+                return 1
         elif personaje.x>796 and personaje.x<936:
-            return "B"
+            corazon.x=825
+            corazon.y=490
+            movio=True
+            if movio==True :
+                return 2
         elif personaje.x>1064 and personaje.x< 1204:
-            return "C"
+            corazon.x=1084
+            corazon.y=490
+            movio=True
+            if movio==True :
+                return 3
         elif personaje.x>1330 and personaje.x< 1470:
-            return "D"
-    else:
-        return None
-
-def mover_objeto(respuesta,objeto):
-    if respuesta!=None:
-        if respuesta=="A":
-            objeto.x=550
-            objeto.y=490
-        if respuesta=="B":
-            objeto.x=825
-            objeto.y=490
-        if respuesta=="C":
-            objeto.x=1084
-            objeto.y=490
-        if respuesta=="D":
-            objeto.x=1350
-            objeto.y=490
-    return objeto
+            corazon.x=1350
+            corazon.y=490
+            movio=True
+            if movio==True :
+                return 4
 
 def ubicar_imagenes(imagen, posición):     
     superficie=imagen.get_rect()
     superficie.x=posición[0]
     superficie.y=posición[1]
     return superficie
+
+def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO=1600, ALTO=900, paredes:list=paredes):
+    personaje.x += personaje_vel_x
+    personaje.y += personaje_vel_y
+    if personaje.x > ANCHO - personaje.width:
+        personaje.x = ANCHO - personaje.width
+    if personaje.x < 450:
+        personaje.x = 450
+    if personaje.y > ALTO - personaje.height:
+        personaje.y = ALTO - personaje.height
+    if personaje.y < 550:
+        personaje.y = 550
+    for pared in paredes:
+        if personaje.colliderect(pared):
+            personaje.x -= personaje_vel_x
+            personaje.y -= personaje_vel_y
 
 # MENU
 TAMAÑO_BOTON = (250,60) # borrar

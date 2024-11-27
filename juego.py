@@ -30,14 +30,19 @@ fuente_respuesta = pygame.font.Font("fuentes/VCR_OSD_MONO_1.001.ttf", 32)
 fuente_respuesta.set_bold(True)
 indice = 0
 bandera_respuesta = False
-
+personaje_vel_x = 0
+personaje_vel_y = 0
+##################################################
 def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     global indice
     global bandera_respuesta
+    global personaje_vel_x
+    global personaje_vel_y
     retorno = "juego"
-
+    respuesta_usuario=None
+    corazon_activo=None
     if datos_juego["vidas"] <= 0:
-        if not bandera_respuesta: 
+        if not bandera_respuesta:         ##esto parece borrable
             retorno = "terminado"  
             bandera_respuesta = True  
         return retorno
@@ -51,45 +56,80 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
         bandera_respuesta = False
 
     pregunta_actual = lista_preguntas[indice]
-
+    #respuesta=lugar_respuesta(personaje)
     for evento in cola_eventos:
         if evento.type == pygame.QUIT:
             retorno = "salir"
-        elif evento.type == pygame.MOUSEBUTTONDOWN:
-            for i in range(len(cartas_respuestas)):
-                if cartas_respuestas[i]['rectangulo'].collidepoint(evento.pos):
-                    respuesta_usuario = (i + 1)
+        if evento.type == pygame.MOUSEBUTTONDOWN:
+            bandera_sonido_click=True
+            for num, corazon in enumerate(corazones):
+                if corazon.collidepoint(evento.pos):
+                    corazon_activo = num
+                    bandera_sonido_click=False
+                    gritos[random.randint(0,2)].play()
+                    print(num)
+                    respuesta_usuario=mover_objeto(personaje,corazon)
+                    for i in range(len(cartas_respuestas)):
+                        if respuesta_usuario:
+                            if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
+                                cartas_respuestas[respuesta_usuario-1]['superficie'].fill(VERDE)
+                                print("RESPUESTA CORRECTA")
+                            else:
+                                cartas_respuestas[respuesta_usuario-1]['superficie'].fill(ROJO)
+                                print("RESPUESTA INCORRECTA")
+                                
+                                if datos_juego['vidas'] <= 0:
+                                    retorno = "terminado" 
+                                    bandera_respuesta = True
+                                    break
+                            print(f"SE HIZO CLICK EN UNA RESPUESTA {respuesta_usuario}")
+                            bandera_respuesta = pygame.time.get_ticks()  
+                            
+                            if indice >= len(lista_preguntas):  
+                                indice = 0
+                                mezclar_lista(lista_preguntas)
+                            else:
+                                indice += 1
                     
-                    if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
-                        CLICK_SONIDO.play()
-                        cartas_respuestas[i]['superficie'].fill(VERDE)
-                        print("RESPUESTA CORRECTA")
-                    else:
-                        CLICK_SONIDO.play()
-                        cartas_respuestas[i]['superficie'].fill(ROJO)
-                        print("RESPUESTA INCORRECTA")
-                        datos_juego['vidas'] -= 1 
-                        
-                        if datos_juego['vidas'] <= 0:
-                            retorno = "terminado" 
-                            bandera_respuesta = True
-                            break
-                    print(f"SE HIZO CLICK EN UNA RESPUESTA {respuesta_usuario}")
-                    bandera_respuesta = pygame.time.get_ticks()  
-                    
-                    if indice >= len(lista_preguntas):  
-                        indice = 0
-                        mezclar_lista(lista_preguntas)
-                    else:
-                        indice += 1
+            if bandera_sonido_click== True:
+                CLICK_SONIDO.play()
+        if evento.type == pygame.MOUSEBUTTONUP:
+            corazon_activo = None
+        #Movimiento
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_ESCAPE: 
+                retorno = "menu"
+            if evento.key == pygame.K_RIGHT:
+                personaje_vel_x = 10
+            if evento.key == pygame.K_LEFT:
+                personaje_vel_x = -10
+            if evento.key == pygame.K_DOWN:
+                personaje_vel_y = 10
+            if evento.key == pygame.K_UP:
+                personaje_vel_y = -10
+        if evento.type == pygame.KEYUP:
+            if evento.key == pygame.K_RIGHT:
+                personaje_vel_x = 0
+            if evento.key == pygame.K_LEFT:
+                personaje_vel_x = 0
+            if evento.key == pygame.K_DOWN:
+                personaje_vel_y = 0
+            if evento.key == pygame.K_UP:
+                personaje_vel_y = 0        
 
+    # Límites
+    chocar (personaje, personaje_vel_x,personaje_vel_y)
+    
+
+    ventana.blit(fondo, (0,0))
+    pygame.draw.rect(ventana,AMARILLO, lugar_texto)
+    pygame.draw.rect(ventana,NARANJA, lugar_corazones)
     mostrar_texto(cuadro_pregunta["superficie"], f"{pregunta_actual['pregunta']}", (20, 20), fuente_pregunta, NEGRO)
 
     mostrar_texto(cartas_respuestas[0]["superficie"], f"{pregunta_actual['respuesta_1']}", (20, 10), fuente_respuesta, BLANCO)
     mostrar_texto(cartas_respuestas[1]["superficie"], f"{pregunta_actual['respuesta_2']}", (20, 10), fuente_respuesta, BLANCO)
     mostrar_texto(cartas_respuestas[2]["superficie"], f"{pregunta_actual['respuesta_3']}", (20, 10), fuente_respuesta, BLANCO)
     mostrar_texto(cartas_respuestas[3]["superficie"], f"{pregunta_actual['respuesta_4']}", (20, 10), fuente_respuesta, BLANCO) 
-    ventana.fill(BLANCO)
     ventana.blit(cuadro_pregunta["superficie"], (80, 80))
 
     cartas_respuestas[0]['rectangulo'] = ventana.blit(cartas_respuestas[0]['superficie'], (125, 245))
@@ -98,8 +138,27 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     cartas_respuestas[3]['rectangulo'] = ventana.blit(cartas_respuestas[3]['superficie'], (125, 455)) 
 
     mostrar_texto(ventana, f"PUNTUACION: {datos_juego['puntuacion']}", (10, 10), fuente_respuesta, NEGRO)
-    mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']}", (10, 40), fuente_respuesta, NEGRO)
+    mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']/4}", (10, 40), fuente_respuesta, NEGRO)
+    
+    
+    
+    ventana.blit(pj_imagen, personaje)
 
+    ventana.blit(letra_a_img, letra_a)
+    ventana.blit(letra_a_img, letra_b)
+    ventana.blit(letra_a_img, letra_c)
+    ventana.blit(letra_a_img, letra_d)
+    
+    ventana.blit(corazon_fondo, LUGAR_cor_celeste)
+    ventana.blit(corazon_fondo, LUGAR_cor_rosa)
+    ventana.blit(corazon_fondo, LUGAR_cor_lila)
+    ventana.blit(img_cor_celeste, cor_celeste)
+    ventana.blit(img_cor_rosa, cor_rosa)
+    ventana.blit(img_cor_lila, cor_lila)
+
+    for pared in paredes:
+        pygame.draw.rect(ventana, NEGRO, pared)
+    
     pygame.display.update()
 
     return retorno

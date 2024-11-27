@@ -1,4 +1,5 @@
 import pygame
+
 pygame.init()
 
 # Colores
@@ -28,7 +29,7 @@ LUGAR_cor_lila =(330,770)
 FPS = 60
 
 # Sistema
-VIDAS = 3
+VIDAS = 12
 ACIERTO = 10
 DESACIERTO= -10
 
@@ -45,6 +46,21 @@ TAMAÑO_BOTON_VOLVER = (210, 75)
 #Terminado
 CUADRO_TEXTO = (250,50)
 
+
+# Imagenes
+letra_a_img = pygame.image.load("imagenes/letra_a.png")
+letra_a_img.set_colorkey(BLANCO)
+
+img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
+img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
+img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png")
+corazon_fondo=pygame.image.load("imagenes/corazón_fondo.png")
+corazon_dx=pygame.image.load("imagenes/corazon_qepd.png")
+
+fondo = pygame.image.load("imagenes/fondo.png")
+
+pj_imagen= pygame.image.load("imagenes/PJ1.png")
+pj_imagen=pygame.transform.scale(pj_imagen, (105, 120))
 #ruido
 
 CLICK_SONIDO = pygame.mixer.Sound("sonidos/click.mp3")
@@ -57,3 +73,50 @@ click_grito3= pygame.mixer.Sound("sonidos/grito3.mp3")
 click_grito3.set_volume(1)
 
 gritos=[click_grito1,click_grito2, click_grito3]
+
+# Datos
+
+largo1 = pygame.Rect(450, 650, 80, 10)
+largo2 = pygame.Rect(670, 650, 126, 10)
+largo3 = pygame.Rect(936, 650, 138, 10)
+largo4 = pygame.Rect(1204, 650, 126, 10)
+largo5 = pygame.Rect(1470, 650, 130, 10)
+punto1 = pygame.Rect(530, 600, 10, 60)
+punto2 = pygame.Rect(670, 600, 10, 60)
+punto3 = pygame.Rect(796, 600, 10, 60)
+punto4 = pygame.Rect(936, 600, 10, 60)
+punto5 = pygame.Rect(1064, 600, 10, 60)
+punto6 = pygame.Rect(1204, 600, 10, 60)
+punto7 = pygame.Rect(1330, 600, 10, 60)
+punto8 = pygame.Rect(1470, 600, 10, 60)
+
+paredes=[largo1,largo2,largo3,largo4,largo5,punto1,punto2,punto3,punto4,punto5,punto6,punto7,punto8]
+
+lugar_texto = pygame.Rect(0, 0, 450, 900)
+lugar_corazones = pygame.Rect(25, 755, 405, 100)
+
+#Objetos
+
+def ubicar_imagenes(imagen, posición):     
+    superficie=imagen.get_rect()
+    superficie.x=posición[0]
+    superficie.y=posición[1]
+    return superficie
+
+centro = pygame.Rect(1025, 450, 8, 8)
+letra_a=ubicar_imagenes(letra_a_img, (550,490))
+letra_b=ubicar_imagenes(letra_a_img, (816,490))
+letra_c=ubicar_imagenes(letra_a_img, (1084,490))
+letra_d=ubicar_imagenes(letra_a_img, (1350,490))
+
+letras=[letra_a,letra_b,letra_c,letra_d]
+
+cor_celeste= ubicar_imagenes(img_cor_celeste, LUGAR_cor_celeste)
+cor_rosa= ubicar_imagenes(img_cor_rosa, LUGAR_cor_rosa)
+cor_lila= ubicar_imagenes(img_cor_lila, LUGAR_cor_lila)
+corazones=[cor_celeste,cor_rosa,cor_lila]
+corazon_activo=None
+
+personaje=ubicar_imagenes(pj_imagen, (1025,800))
+personaje_vel_x = 0
+personaje_vel_y = 0

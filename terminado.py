@@ -74,6 +74,8 @@ def mostrar_fin_juego(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
             if len(nombre) > 10:
                 nombre = nombre[:10]
                 print(f"Nombre recortado a 10 caracteres: {nombre}")
+            #if evento.key == pygame.K_ESCAPE: 
+            #    retorno = "salir"
 
     fondo_imagen = pygame.image.load("imagenes/Fondo menú.png")
     fondo_imagen = pygame.transform.scale(fondo_imagen, PANTALLA)
