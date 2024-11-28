@@ -66,7 +66,7 @@ corazon_dx=pygame.image.load("imagenes/corazon_qepd.png")
 
 img_cor=[img_cor_celeste,img_cor_rosa,img_cor_lila]
 
-fondo = pygame.image.load("imagenes/fondo.png")
+fondo = pygame.image.load("imagenes/fondito.png")
 
 pj_imagen= pygame.image.load("imagenes/PJ1.png")
 pj_imagen=pygame.transform.scale(pj_imagen, (105, 120))

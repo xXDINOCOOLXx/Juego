@@ -81,8 +81,7 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
                 empieza=pygame.time.get_ticks()
                 estratosferar_objeto(pasar)
             if puntos_extra.collidepoint(evento.pos):
-                if verificar_respuesta:
-                    datos_juego["puntuacion"] += ACIERTO
+                chance=True
                 estratosferar_objeto(puntos_extra)
             for num, corazon in enumerate(corazones):
                 if corazon.collidepoint(evento.pos):
@@ -147,6 +146,9 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     if respuesta_usuario:
         if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
             cartas_respuestas[respuesta_usuario-1]['superficie'].fill(VERDE)
+            if chance:
+                datos_juego["puntuacion"] += ACIERTO
+                chance=False
             print("RESPUESTA CORRECTA")
         else:
             cartas_respuestas[respuesta_usuario-1]['superficie'].fill(ROJO)
