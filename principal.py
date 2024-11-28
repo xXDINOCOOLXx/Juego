@@ -6,7 +6,6 @@ from menu import *
 from juego import *
 from configuración import *
 from terminado import *
-from rankings import *
 
 # Inicializar
 pygame.init()
@@ -46,7 +45,7 @@ while jugando:
     elif ventana_actual == "terminado":
         ventana_actual = mostrar_fin_juego(ventana,cola_eventos,datos_juego)
     elif ventana_actual == "rankings":
-        ventana_actual = mostrar_top_10(ventana, cola_eventos, "partidas.json")
+        pass
     elif ventana_actual == "salir":
         jugando = False
 
