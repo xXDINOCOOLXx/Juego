@@ -48,11 +48,11 @@ def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> 
     
     return retorno
 
-def reiniciar_estadisticas(datos_juego:dict):
+def reiniciar_estadisticas(datos_juego:dict)->None:
     datos_juego["puntuacion"] = 0
     datos_juego["vidas"] = VIDAS
 
-def mover_objeto(personaje,corazon,letras:list=letras):
+def mover_objeto(personaje,corazon,letras:list=letras)->int:
     movio=False
     if personaje.y<600:
         if personaje.x>530 and personaje.x<670 :
@@ -80,7 +80,7 @@ def mover_objeto(personaje,corazon,letras:list=letras):
             if movio==True :
                 return 4
 
-def estratosferar_objeto(objeto):
+def estratosferar_objeto(objeto)->None:
     """
     Manda un objeto a donde no da la luz del sol
     """
@@ -93,7 +93,7 @@ def ubicar_imagenes(imagen, posición):
     superficie.y=posición[1]
     return superficie
 
-def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO:int=1600, ALTO:int=900, paredes:list=paredes):
+def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO:int=1600, ALTO:int=900, paredes:list=paredes)->None:
     personaje.x += personaje_vel_x
     personaje.y += personaje_vel_y
     if personaje.x > ANCHO - personaje.width:
@@ -109,13 +109,7 @@ def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO:int=1600, ALTO:int=
             personaje.x -= personaje_vel_x
             personaje.y -= personaje_vel_y
 
-# MENU
-TAMAÑO_BOTON = (250,60) # borrar
-BOTON_SALIR = 3 #borrar
-
-#boton_jugar = pygame.image.load("imagenes/boton_jugar.png")
-
-fuente = pygame.font.SysFont("Arial Narrow",32)
+""" fuente = pygame.font.SysFont("Arial Narrow",32)
 fuente_boton = pygame.font.SysFont("Arial Narrow",23)
 boton_volver = {}
 boton_volver["superficie"] = pygame.Surface(TAMAÑO_BOTON_VOLVER)
@@ -139,8 +133,8 @@ def mostrar_rankings(pantalla:pygame.Surface,cola_eventos:list[pygame.event.Even
     mostrar_texto(boton_volver["superficie"],"VOLVER",(10,10),fuente_boton,BLANCO)
     mostrar_texto(pantalla,f"ACA SE DEBE MOSTRAR EL TOP 10",(20,200),fuente,NEGRO)
     
-    return retorno
-                
+    return retorno """
+
 def crear_diccionario_pregunta(lista_valores: list) -> dict:
     pregunta = {}
     pregunta["pregunta"] = lista_valores[0].strip()

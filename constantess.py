@@ -9,7 +9,7 @@ VERDE=(0,255,0)
 ROJO = (255,0,0)
 AZUL = (0,0,255)
 VIOLETA = (134,23,219)
-VIOLETA2 = (104,0,209)
+VIOLETA2 = (60,20,185)
 AMARILLO = (235,200,0)
 NARANJA = (215,179,0)
 # Medidas
@@ -56,7 +56,14 @@ puntos_img=pygame.transform.scale(puntos_img, (60, 60))
 puntos_img.set_colorkey(BLANCO)
 
 letra_a_img = pygame.image.load("imagenes/letra_a.png")
-letra_a_img.set_colorkey(BLANCO)
+letra_a_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_b_img = pygame.image.load("imagenes/letra_b.png")
+letra_b_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_c_img = pygame.image.load("imagenes/letra_c.png")
+letra_c_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_d_img = pygame.image.load("imagenes/letra_d.png")
+letra_d_img=pygame.transform.scale(letra_a_img, (110, 110))
+
 
 img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
 img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
@@ -81,7 +88,6 @@ click_grito2= pygame.mixer.Sound("sonidos/grito2.mp3")
 click_grito2.set_volume(1)
 click_grito3= pygame.mixer.Sound("sonidos/grito3.mp3")
 click_grito3.set_volume(1)
-lol= pygame.mixer.Sound("sonidos/sus.mp3")
 gritos=[click_grito1,click_grito2, click_grito3]
 
 # Datos
@@ -114,10 +120,10 @@ def ubicar_imagenes(imagen, posición):
     return superficie
 
 centro = pygame.Rect(1025, 450, 8, 8)
-letra_a=ubicar_imagenes(letra_a_img, (550,490))
-letra_b=ubicar_imagenes(letra_a_img, (816,490))
-letra_c=ubicar_imagenes(letra_a_img, (1084,490))
-letra_d=ubicar_imagenes(letra_a_img, (1350,490))
+letra_a=ubicar_imagenes(letra_a_img, (550,400))
+letra_b=ubicar_imagenes(letra_b_img, (816,400))
+letra_c=ubicar_imagenes(letra_c_img, (1084,400))
+letra_d=ubicar_imagenes(letra_d_img, (1350,400))
 
 letras=[letra_a,letra_b,letra_c,letra_d]
 

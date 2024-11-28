@@ -29,15 +29,15 @@ fuente_pregunta = pygame.font.Font("fuentes/VCR_OSD_MONO_1.001.ttf", 32)
 fuente_respuesta = pygame.font.Font("fuentes/VCR_OSD_MONO_1.001.ttf", 32)
 fuente_respuesta.set_bold(True)
 indice = 0
-#bandera_respuesta = False
 personaje_vel_x = 0
 personaje_vel_y = 0
 bandera_tiempo=True
 empieza=0
+chance=False
 ##################################################
 def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     global indice
-    #global bandera_respuesta
+    global chance
     global personaje_vel_x
     global personaje_vel_y
     global bandera_tiempo
@@ -45,18 +45,18 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     retorno = "juego"
     respuesta_usuario=None
     corazon_activo=None
+    
     if bandera_tiempo:
         empieza=pygame.time.get_ticks() 
         bandera_tiempo=False    
-    segundos=(pygame.time.get_ticks()-empieza)/1000 #calculate how many seconds
+    segundos=(pygame.time.get_ticks()-empieza)/1000
+    
     if segundos>16:
             datos_juego["vidas"] -= 1
-            lol.play
             indice+=1
             empieza=pygame.time.get_ticks() 
     
     if datos_juego["vidas"] <= 0:
-        #if not bandera_respuesta:         ##esto parece borrable
             retorno = "terminado"  
             #bandera_respuesta = True  
             return retorno
@@ -64,10 +64,6 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     cuadro_pregunta["superficie"].fill(AMARILLO)
     for carta in cartas_respuestas:
         carta["superficie"].fill(VIOLETA)
-
-    """ if bandera_respuesta:
-        pygame.time.delay(500)
-        bandera_respuesta = False """
 
     pregunta_actual = lista_preguntas[indice]
     #respuesta=lugar_respuesta(personaje)
@@ -140,9 +136,7 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     mostrar_texto(ventana, f"PUNTUACION: {datos_juego['puntuacion']}", (10, 10), fuente_respuesta, NEGRO)
     mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']}", (10, 40), fuente_respuesta, NEGRO)
     mostrar_texto(ventana, str(int(16-segundos)), (390, 10), fuente_respuesta, NEGRO)
-    
-    #for i in range(len(cartas_respuestas)):
-                        
+
     if respuesta_usuario:
         if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
             cartas_respuestas[respuesta_usuario-1]['superficie'].fill(VERDE)
@@ -151,6 +145,7 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
                 chance=False
             print("RESPUESTA CORRECTA")
         else:
+            chance=False
             cartas_respuestas[respuesta_usuario-1]['superficie'].fill(ROJO)
             print("RESPUESTA INCORRECTA")
             
@@ -158,8 +153,8 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
                 retorno = "terminado" 
                 #bandera_respuesta = True
                 #break
-            
-            estratosferar_objeto(corazones[corazon_activo])
+            elif datos_juego['vidas']==1:
+                estratosferar_objeto(corazones[corazon_activo])
         
         print(f"SE HIZO CLICK EN UNA RESPUESTA {respuesta_usuario}")
         #bandera_respuesta = pygame.time.get_ticks()  
@@ -174,9 +169,9 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     ventana.blit(pj_imagen, personaje)
 
     ventana.blit(letra_a_img, letra_a)
-    ventana.blit(letra_a_img, letra_b)
-    ventana.blit(letra_a_img, letra_c)
-    ventana.blit(letra_a_img, letra_d)
+    ventana.blit(letra_b_img, letra_b)
+    ventana.blit(letra_c_img, letra_c)
+    ventana.blit(letra_d_img, letra_d)
     
     ventana.blit(corazon_fondo, LUGAR_cor_celeste)
     ventana.blit(corazon_fondo, LUGAR_cor_rosa)

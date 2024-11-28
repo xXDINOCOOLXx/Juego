@@ -11,7 +11,7 @@ fuente = pygame.font.SysFont("Arial Narrow", 40)
 cuadro = {}
 cuadro["superficie"] = pygame.Surface(CUADRO_TEXTO)
 cuadro["rectangulo"] = cuadro["superficie"].get_rect()
-cuadro['superficie'].fill(AZUL)
+#cuadro['superficie'].fill(AZUL)
 boton_volver_imagen = pygame.image.load("imagenes/Botón volver.png")
 boton_volver = {}
 boton_volver["superficie"] = pygame.transform.scale(boton_volver_imagen, TAMAÑO_BOTON_VOLVER)
@@ -89,7 +89,7 @@ def mostrar_fin_juego(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
     fondo_imagen = pygame.transform.scale(fondo_imagen, PANTALLA)
     pantalla.blit(fondo_imagen, (0, 0))
 
-    cuadro["superficie"].fill(AZUL)
+    cuadro["superficie"].fill(VIOLETA2)
 
     mostrar_texto(cuadro["superficie"], nombre, (10, 0), fuente, BLANCO)
     pantalla.blit(cuadro["superficie"], (200, 200)) 
