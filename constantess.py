@@ -12,6 +12,7 @@ VIOLETA = (134,23,219)
 VIOLETA2 = (60,20,185)
 AMARILLO = (235,200,0)
 NARANJA = (215,179,0)
+CELESTE= (112,225,253)
 # Medidas
 ANCHO = 1600
 ALTO = 900
@@ -58,11 +59,14 @@ puntos_img.set_colorkey(BLANCO)
 letra_a_img = pygame.image.load("imagenes/letra_a.png")
 letra_a_img=pygame.transform.scale(letra_a_img, (110, 110))
 letra_b_img = pygame.image.load("imagenes/letra_b.png")
-letra_b_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_b_img=pygame.transform.scale(letra_b_img, (110, 110))
 letra_c_img = pygame.image.load("imagenes/letra_c.png")
-letra_c_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_c_img=pygame.transform.scale(letra_c_img, (110, 110))
 letra_d_img = pygame.image.load("imagenes/letra_d.png")
-letra_d_img=pygame.transform.scale(letra_a_img, (110, 110))
+letra_d_img=pygame.transform.scale(letra_d_img, (110, 110))
+
+piedras_img = pygame.image.load("imagenes/piedrass.png")
+#piedras_img=pygame.transform.scale(piedras_img, (140, 34))
 
 
 img_cor_rosa = pygame.image.load("imagenes/corazón_rosa.png")
@@ -92,19 +96,20 @@ gritos=[click_grito1,click_grito2, click_grito3]
 
 # Datos
 
-largo1 = pygame.Rect(450, 650, 80, 10)
-largo2 = pygame.Rect(670, 650, 126, 10)
-largo3 = pygame.Rect(936, 650, 138, 10)
-largo4 = pygame.Rect(1204, 650, 126, 10)
-largo5 = pygame.Rect(1470, 650, 130, 10)
-punto1 = pygame.Rect(530, 600, 10, 60)
-punto2 = pygame.Rect(670, 600, 10, 60)
-punto3 = pygame.Rect(796, 600, 10, 60)
-punto4 = pygame.Rect(936, 600, 10, 60)
-punto5 = pygame.Rect(1064, 600, 10, 60)
-punto6 = pygame.Rect(1204, 600, 10, 60)
-punto7 = pygame.Rect(1330, 600, 10, 60)
-punto8 = pygame.Rect(1470, 600, 10, 60)
+largo1 = pygame.Rect(450, 650, 80, 5)
+largo2 = pygame.Rect(670, 650, 126, 5)
+largo3 = pygame.Rect(936, 650, 138, 5)
+largo4 = pygame.Rect(1204, 650, 126, 5)
+largo5 = pygame.Rect(1470, 650, 130, 5)
+
+punto1 = pygame.Rect(530, 600, 5, 60)
+punto2 = pygame.Rect(670, 600, 5, 60)
+punto3 = pygame.Rect(796, 600, 5, 60)
+punto4 = pygame.Rect(936, 600, 5, 60)
+punto5 = pygame.Rect(1064, 600, 5, 60)
+punto6 = pygame.Rect(1204, 600, 5, 60)
+punto7 = pygame.Rect(1330, 600, 5, 60)
+punto8 = pygame.Rect(1470, 600, 5, 60)
 
 paredes=[largo1,largo2,largo3,largo4,largo5,punto1,punto2,punto3,punto4,punto5,punto6,punto7,punto8]
 
@@ -120,10 +125,10 @@ def ubicar_imagenes(imagen, posición):
     return superficie
 
 centro = pygame.Rect(1025, 450, 8, 8)
-letra_a=ubicar_imagenes(letra_a_img, (550,400))
-letra_b=ubicar_imagenes(letra_b_img, (816,400))
-letra_c=ubicar_imagenes(letra_c_img, (1084,400))
-letra_d=ubicar_imagenes(letra_d_img, (1350,400))
+letra_a=ubicar_imagenes(letra_a_img, (550,550))
+letra_b=ubicar_imagenes(letra_b_img, (816,550))
+letra_c=ubicar_imagenes(letra_c_img, (1084,550))
+letra_d=ubicar_imagenes(letra_d_img, (1350,550))
 
 letras=[letra_a,letra_b,letra_c,letra_d]
 

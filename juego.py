@@ -117,10 +117,11 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     chocar (personaje, personaje_vel_x,personaje_vel_y)
     
 
+    mostrar_texto(cuadro_pregunta["superficie"], f"{pregunta_actual['pregunta']}", (20, 20), fuente_pregunta, NEGRO)
     ventana.blit(fondo, (0,0))
+    ventana.blit(piedras_img,(420,620))
     pygame.draw.rect(ventana,AMARILLO, lugar_texto)
     pygame.draw.rect(ventana,NARANJA, lugar_corazones)
-    mostrar_texto(cuadro_pregunta["superficie"], f"{pregunta_actual['pregunta']}", (20, 20), fuente_pregunta, NEGRO)
 
     mostrar_texto(cartas_respuestas[0]["superficie"], f"{pregunta_actual['respuesta_1']}", (20, 10), fuente_respuesta, BLANCO)
     mostrar_texto(cartas_respuestas[1]["superficie"], f"{pregunta_actual['respuesta_2']}", (20, 10), fuente_respuesta, BLANCO)
@@ -166,7 +167,8 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
             indice += 1
             empieza=pygame.time.get_ticks() 
     
-    ventana.blit(pj_imagen, personaje)
+    for pared in paredes:
+        pygame.draw.rect(ventana, CELESTE, pared)
 
     ventana.blit(letra_a_img, letra_a)
     ventana.blit(letra_b_img, letra_b)
@@ -180,12 +182,16 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     ventana.blit(img_cor_rosa, cor_rosa)
     ventana.blit(img_cor_lila, cor_lila)
 
+    ventana.blit(pj_imagen, personaje)
+    
+    ventana.blit(piedras_img,(670,620))
+    ventana.blit(piedras_img,(936,620))
+    ventana.blit(piedras_img,(1204,620))
+    ventana.blit(piedras_img,(1470,620))
     #Comodines
     ventana.blit(pasar_img,pasar)
     ventana.blit(puntos_img,puntos_extra)
 
-    for pared in paredes:
-        pygame.draw.rect(ventana, NEGRO, pared)
     
     pygame.display.update()
 

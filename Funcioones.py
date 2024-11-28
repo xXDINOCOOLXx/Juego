@@ -57,25 +57,25 @@ def mover_objeto(personaje,corazon,letras:list=letras)->int:
     if personaje.y<600:
         if personaje.x>530 and personaje.x<670 :
             corazon.x=550
-            corazon.y=490
+            corazon.y=520
             movio=True
             if movio==True :
                 return 1
         elif personaje.x>796 and personaje.x<936:
             corazon.x=825
-            corazon.y=490
+            corazon.y=520
             movio=True
             if movio==True :
                 return 2
         elif personaje.x>1064 and personaje.x< 1204:
             corazon.x=1084
-            corazon.y=490
+            corazon.y=520
             movio=True
             if movio==True :
                 return 3
         elif personaje.x>1330 and personaje.x< 1470:
             corazon.x=1350
-            corazon.y=490
+            corazon.y=520
             movio=True
             if movio==True :
                 return 4
