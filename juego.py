@@ -32,6 +32,7 @@ indice = 0
 bandera_respuesta = False
 personaje_vel_x = 0
 personaje_vel_y = 0
+
 ##################################################
 def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],datos_juego:dict) -> str:
     global indice
@@ -62,34 +63,18 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
             retorno = "salir"
         if evento.type == pygame.MOUSEBUTTONDOWN:
             bandera_sonido_click=True
+
             for num, corazon in enumerate(corazones):
                 if corazon.collidepoint(evento.pos):
                     corazon_activo = num
                     bandera_sonido_click=False
                     gritos[random.randint(0,2)].play()
-                    print(num)
+                    print(f"{num}")
                     respuesta_usuario=mover_objeto(personaje,corazon)
-                    for i in range(len(cartas_respuestas)):
-                        if respuesta_usuario:
-                            if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
-                                cartas_respuestas[respuesta_usuario-1]['superficie'].fill(VERDE)
-                                print("RESPUESTA CORRECTA")
-                            else:
-                                cartas_respuestas[respuesta_usuario-1]['superficie'].fill(ROJO)
-                                print("RESPUESTA INCORRECTA")
-                                
-                                if datos_juego['vidas'] <= 0:
-                                    retorno = "terminado" 
-                                    bandera_respuesta = True
-                                    break
-                            print(f"SE HIZO CLICK EN UNA RESPUESTA {respuesta_usuario}")
-                            bandera_respuesta = pygame.time.get_ticks()  
-                            
-                            if indice >= len(lista_preguntas):  
-                                indice = 0
-                                mezclar_lista(lista_preguntas)
-                            else:
-                                indice += 1
+                    print(respuesta_usuario)
+                        #if tiempo==0:
+                        #    datos_juego["vidas"] -= 1
+                        #    indice+=1
                     
             if bandera_sonido_click== True:
                 CLICK_SONIDO.play()
@@ -138,9 +123,34 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     cartas_respuestas[3]['rectangulo'] = ventana.blit(cartas_respuestas[3]['superficie'], (125, 455)) 
 
     mostrar_texto(ventana, f"PUNTUACION: {datos_juego['puntuacion']}", (10, 10), fuente_respuesta, NEGRO)
-    mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']/4}", (10, 40), fuente_respuesta, NEGRO)
+    mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']}", (10, 40), fuente_respuesta, NEGRO)
+    #mostrar_texto(ventana, tiempo, (10, 40), fuente_respuesta, NEGRO)
     
-    
+    #for i in range(len(cartas_respuestas)):
+                        
+    if respuesta_usuario:
+        if verificar_respuesta(datos_juego,pregunta_actual,respuesta_usuario):
+            cartas_respuestas[respuesta_usuario-1]['superficie'].fill(VERDE)
+            print("RESPUESTA CORRECTA")
+        else:
+            cartas_respuestas[respuesta_usuario-1]['superficie'].fill(ROJO)
+            print("RESPUESTA INCORRECTA")
+            
+            if datos_juego['vidas'] <= 0:
+                retorno = "terminado" 
+                bandera_respuesta = True
+                #break
+            
+            estratosferar_objeto(corazones[corazon_activo])
+        
+        print(f"SE HIZO CLICK EN UNA RESPUESTA {respuesta_usuario}")
+        bandera_respuesta = pygame.time.get_ticks()  
+        
+        if indice >= len(lista_preguntas):  
+            indice = 0
+            mezclar_lista(lista_preguntas)
+        else:
+            indice += 1
     
     ventana.blit(pj_imagen, personaje)
 

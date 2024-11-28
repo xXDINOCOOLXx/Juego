@@ -24,9 +24,16 @@ def mostrar_texto(surface, texto, posicion, fuente, color):
 def mezclar_lista(lista_preguntas:list) -> None:
     random.shuffle(lista_preguntas)
 
+racha=0
 def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> bool:
+    print("Holu :p")
+    global racha
     if respuesta == pregunta_actual["respuesta_correcta"]:
         datos_juego["puntuacion"] += ACIERTO
+        racha+=1
+        if racha==5:
+            datos_juego["vidas"] += 1
+            racha=0
         retorno = True
     else:
         #SIN PUNTOS NEGATIVOS
@@ -37,6 +44,7 @@ def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> 
         #datos_juego["puntuacion"] -= PUNTUACION_ERROR
         
         datos_juego["vidas"] -= 1
+        racha=0
         retorno = False
     
     return retorno
@@ -72,6 +80,10 @@ def mover_objeto(personaje,corazon,letras:list=letras):
             movio=True
             if movio==True :
                 return 4
+
+def estratosferar_objeto(corazon):
+    corazon.x=-100
+    corazon.y=-100
 
 def ubicar_imagenes(imagen, posición):     
     superficie=imagen.get_rect()

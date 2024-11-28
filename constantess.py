@@ -29,7 +29,7 @@ LUGAR_cor_lila =(330,770)
 FPS = 60
 
 # Sistema
-VIDAS = 12
+VIDAS = 3
 ACIERTO = 10
 DESACIERTO= -10
 
@@ -56,6 +56,8 @@ img_cor_celeste = pygame.image.load("imagenes/corazón_azul.png")
 img_cor_lila = pygame.image.load("imagenes/corazón_violeta.png")
 corazon_fondo=pygame.image.load("imagenes/corazón_fondo.png")
 corazon_dx=pygame.image.load("imagenes/corazon_qepd.png")
+
+img_cor=[img_cor_celeste,img_cor_rosa,img_cor_lila]
 
 fondo = pygame.image.load("imagenes/fondo.png")
 
