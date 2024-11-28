@@ -19,7 +19,7 @@ ALTO = 900
 PANTALLA = (ANCHO,ALTO)
 TAMAÑO_BOTON = (420,70)
 TAMAÑO_PREGUNTA = (350,150)
-TAMAÑO_RESPUESTA = (250,60)
+TAMAÑO_RESPUESTA = (300, 80)
 
 # Corazones
 LUGAR_cor_celeste =(36,770)
@@ -81,6 +81,12 @@ fondo = pygame.image.load("imagenes/fondito.png")
 
 pj_imagen= pygame.image.load("imagenes/PJ1.png")
 pj_imagen=pygame.transform.scale(pj_imagen, (105, 120))
+
+fondo_carta_img = pygame.image.load("imagenes/CARTEL.png")
+fondo_carta_img = pygame.transform.scale(fondo_carta_img, TAMAÑO_RESPUESTA)
+
+cuadro_pregunta_img = pygame.image.load("imagenes/cuadro_pregunta.png")
+cuadro_pregunta_img = pygame.transform.scale(cuadro_pregunta_img,TAMAÑO_PREGUNTA)
 
 #ruido
 

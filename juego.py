@@ -14,9 +14,11 @@ pygame.init()
 pygame.display.set_caption("Appa Fans")
 pygame.display.set_icon(pygame.image.load("imagenes/appa.png"))
 
+
 cuadro_pregunta = {}
 cuadro_pregunta["superficie"] = pygame.Surface(TAMAÑO_PREGUNTA)
 cuadro_pregunta["rectangulo"] = cuadro_pregunta["superficie"].get_rect()
+
 
 cartas_respuestas = []
 for i in range(4):
@@ -63,7 +65,7 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
 
     cuadro_pregunta["superficie"].fill(AMARILLO)
     for carta in cartas_respuestas:
-        carta["superficie"].fill(VIOLETA)
+        carta["superficie"].blit(fondo_carta_img, (0, 0))
 
     pregunta_actual = lista_preguntas[indice]
     #respuesta=lugar_respuesta(personaje)
@@ -115,7 +117,7 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
 
     # Límites
     chocar (personaje, personaje_vel_x,personaje_vel_y)
-    
+
 
     mostrar_texto(cuadro_pregunta["superficie"], f"{pregunta_actual['pregunta']}", (20, 20), fuente_pregunta, NEGRO)
     ventana.blit(fondo, (0,0))
@@ -123,16 +125,16 @@ def mostrar_juego(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event],d
     pygame.draw.rect(ventana,AMARILLO, lugar_texto)
     pygame.draw.rect(ventana,NARANJA, lugar_corazones)
 
-    mostrar_texto(cartas_respuestas[0]["superficie"], f"{pregunta_actual['respuesta_1']}", (20, 10), fuente_respuesta, BLANCO)
-    mostrar_texto(cartas_respuestas[1]["superficie"], f"{pregunta_actual['respuesta_2']}", (20, 10), fuente_respuesta, BLANCO)
-    mostrar_texto(cartas_respuestas[2]["superficie"], f"{pregunta_actual['respuesta_3']}", (20, 10), fuente_respuesta, BLANCO)
-    mostrar_texto(cartas_respuestas[3]["superficie"], f"{pregunta_actual['respuesta_4']}", (20, 10), fuente_respuesta, BLANCO) 
+    mostrar_texto(cartas_respuestas[0]["superficie"], f"{pregunta_actual['respuesta_1']}", (45, 15), fuente_respuesta, BLANCO)
+    mostrar_texto(cartas_respuestas[1]["superficie"], f"{pregunta_actual['respuesta_2']}", (45, 15), fuente_respuesta, BLANCO)
+    mostrar_texto(cartas_respuestas[2]["superficie"], f"{pregunta_actual['respuesta_3']}", (45, 15), fuente_respuesta, BLANCO)
+    mostrar_texto(cartas_respuestas[3]["superficie"], f"{pregunta_actual['respuesta_4']}", (45, 15), fuente_respuesta, BLANCO) 
     ventana.blit(cuadro_pregunta["superficie"], (80, 80))
 
-    cartas_respuestas[0]['rectangulo'] = ventana.blit(cartas_respuestas[0]['superficie'], (125, 245))
-    cartas_respuestas[1]['rectangulo'] = ventana.blit(cartas_respuestas[1]['superficie'], (125, 315))
-    cartas_respuestas[2]['rectangulo'] = ventana.blit(cartas_respuestas[2]['superficie'], (125, 385))
-    cartas_respuestas[3]['rectangulo'] = ventana.blit(cartas_respuestas[3]['superficie'], (125, 455)) 
+    cartas_respuestas[0]['rectangulo'] = ventana.blit(cartas_respuestas[0]['superficie'], (90, 270))  
+    cartas_respuestas[1]['rectangulo'] = ventana.blit(cartas_respuestas[1]['superficie'], (90, 360))  
+    cartas_respuestas[2]['rectangulo'] = ventana.blit(cartas_respuestas[2]['superficie'], (90, 450))  
+    cartas_respuestas[3]['rectangulo'] = ventana.blit(cartas_respuestas[3]['superficie'], (90, 540)) 
 
     mostrar_texto(ventana, f"PUNTUACION: {datos_juego['puntuacion']}", (10, 10), fuente_respuesta, NEGRO)
     mostrar_texto(ventana, f"VIDAS: {datos_juego['vidas']}", (10, 40), fuente_respuesta, NEGRO)

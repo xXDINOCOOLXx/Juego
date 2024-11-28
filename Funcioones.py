@@ -21,6 +21,7 @@ def mostrar_texto(surface, texto, posicion, fuente, color):
         x = posicion[0]  # Reset the x.
         y += alto_palabra  # Start on new row.
 
+
 def mezclar_lista(lista_preguntas:list) -> None:
     random.shuffle(lista_preguntas)
 

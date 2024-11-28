@@ -38,8 +38,8 @@ def mostrar_menu(ventana:pygame.Surface,cola_eventos:list[pygame.event.Event]) -
         elif evento.type == pygame.QUIT:
             retorno = "salir"
 
-    fondo = pygame.image.load("imagenes/Fondo menú.png")
-    ventana.blit(fondo, (0, 0))
+    fondo_menu = pygame.image.load("imagenes/Fondo menú logo.png")
+    ventana.blit(fondo_menu, (0, 0))
 
     margen_superior = 375
 
