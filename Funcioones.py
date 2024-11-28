@@ -159,3 +159,17 @@ def cargar_musica(volumen):
     pygame.mixer.music.load("sonidos/8bitRandom.mp3")
     pygame.mixer.music.set_volume(porcentaje_volumen)
     pygame.mixer.music.play(-1)
+
+def obtener_top_10_partidas(nombre_archivo: str):
+    if not os.path.exists(nombre_archivo):
+        return []
+
+    try:
+        with open(nombre_archivo, "r") as archivo:
+            partidas = json.load(archivo)
+    except json.JSONDecodeError:
+        print("El archivo JSON está vacío o tiene un formato incorrecto.")
+        return []
+    partidas_ordenadas = sorted(partidas, key=lambda x: x["puntaje"], reverse=True)
+
+    return partidas_ordenadas[:10]

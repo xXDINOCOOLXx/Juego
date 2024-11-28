@@ -12,6 +12,11 @@ cuadro = {}
 cuadro["superficie"] = pygame.Surface(CUADRO_TEXTO)
 cuadro["rectangulo"] = cuadro["superficie"].get_rect()
 cuadro['superficie'].fill(AZUL)
+boton_volver_imagen = pygame.image.load("imagenes/Botón volver.png")
+boton_volver = {}
+boton_volver["superficie"] = pygame.transform.scale(boton_volver_imagen, TAMAÑO_BOTON_VOLVER)
+boton_volver["rectangulo"] = boton_volver["superficie"].get_rect(topleft=(15, 15))
+
 nombre = ""
 partida_guardada = False  
 nombre_completo = False 
@@ -51,14 +56,17 @@ def mostrar_fin_juego(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
         if evento.type == pygame.QUIT:
             retorno = "salir"
         elif evento.type == pygame.MOUSEBUTTONDOWN:
-            pass
+            if boton_volver["rectangulo"].collidepoint(evento.pos):
+                print("VOLVER AL MENÚ")
+                CLICK_SONIDO.play()
+                retorno = "menu"
         elif evento.type == pygame.KEYDOWN:
             bloc_mayus = pygame.key.get_mods() & pygame.KMOD_CAPS 
             letra_presionada = pygame.key.name(evento.key)
             
             if letra_presionada == "backspace" and len(nombre) > 0:
                 nombre = nombre[:-1]
-                print(f"Nombre después de backspace: {nombre}")  # Línea para depurar
+                print(f"Nombre después de backspace: {nombre}") 
 
             elif letra_presionada == "space":
                 nombre += " "
@@ -90,5 +98,7 @@ def mostrar_fin_juego(pantalla: pygame.Surface, cola_eventos: list[pygame.event.
 
     if nombre_completo and not partida_guardada: 
         guardar_partida("partidas.json", nombre, datos_juego["puntuacion"])
+
+    pantalla.blit(boton_volver["superficie"], boton_volver["rectangulo"])
 
     return retorno
