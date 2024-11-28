@@ -26,7 +26,6 @@ def mezclar_lista(lista_preguntas:list) -> None:
 
 racha=0
 def verificar_respuesta(datos_juego:dict,pregunta_actual:dict,respuesta:int) -> bool:
-    print("Holu :p")
     global racha
     if respuesta == pregunta_actual["respuesta_correcta"]:
         datos_juego["puntuacion"] += ACIERTO
@@ -81,9 +80,12 @@ def mover_objeto(personaje,corazon,letras:list=letras):
             if movio==True :
                 return 4
 
-def estratosferar_objeto(corazon):
-    corazon.x=-100
-    corazon.y=-100
+def estratosferar_objeto(objeto):
+    """
+    Manda un objeto a donde no da la luz del sol
+    """
+    objeto.x=-100
+    objeto.y=-100
 
 def ubicar_imagenes(imagen, posición):     
     superficie=imagen.get_rect()
@@ -91,7 +93,7 @@ def ubicar_imagenes(imagen, posición):
     superficie.y=posición[1]
     return superficie
 
-def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO=1600, ALTO=900, paredes:list=paredes):
+def chocar(personaje, personaje_vel_x,personaje_vel_y, ANCHO:int=1600, ALTO:int=900, paredes:list=paredes):
     personaje.x += personaje_vel_x
     personaje.y += personaje_vel_y
     if personaje.x > ANCHO - personaje.width:

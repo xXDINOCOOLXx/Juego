@@ -48,6 +48,13 @@ CUADRO_TEXTO = (250,50)
 
 
 # Imagenes
+pasar_img=pygame.image.load("imagenes/flecha.png")
+pasar_img=pygame.transform.scale(pasar_img, (60, 60))
+
+puntos_img=pygame.image.load("imagenes/puntos.png")
+puntos_img=pygame.transform.scale(puntos_img, (60, 60))
+puntos_img.set_colorkey(BLANCO)
+
 letra_a_img = pygame.image.load("imagenes/letra_a.png")
 letra_a_img.set_colorkey(BLANCO)
 
@@ -63,6 +70,7 @@ fondo = pygame.image.load("imagenes/fondo.png")
 
 pj_imagen= pygame.image.load("imagenes/PJ1.png")
 pj_imagen=pygame.transform.scale(pj_imagen, (105, 120))
+
 #ruido
 
 CLICK_SONIDO = pygame.mixer.Sound("sonidos/click.mp3")
@@ -73,7 +81,7 @@ click_grito2= pygame.mixer.Sound("sonidos/grito2.mp3")
 click_grito2.set_volume(1)
 click_grito3= pygame.mixer.Sound("sonidos/grito3.mp3")
 click_grito3.set_volume(1)
-
+lol= pygame.mixer.Sound("sonidos/sus.mp3")
 gritos=[click_grito1,click_grito2, click_grito3]
 
 # Datos
@@ -122,3 +130,7 @@ corazon_activo=None
 personaje=ubicar_imagenes(pj_imagen, (1025,800))
 personaje_vel_x = 0
 personaje_vel_y = 0
+
+pasar=ubicar_imagenes(pasar_img,(130, 690))
+
+puntos_extra=ubicar_imagenes(puntos_img, (300,685))
