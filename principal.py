@@ -45,7 +45,7 @@ while jugando:
     elif ventana_actual == "terminado":
         ventana_actual = mostrar_fin_juego(ventana,cola_eventos,datos_juego)
     elif ventana_actual == "rankings":
-        pass
+        ventana_actual = mostrar_top_10(ventana, cola_eventos,"partidas.json")
     elif ventana_actual == "salir":
         jugando = False
 
